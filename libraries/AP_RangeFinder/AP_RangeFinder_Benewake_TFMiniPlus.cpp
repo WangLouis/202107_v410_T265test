@@ -216,6 +216,6 @@ void AP_RangeFinder_Benewake_TFMiniPlus::timer()
     {
         WITH_SEMAPHORE(_sem);
         accum.sum += distance;
-        accum.count++;
+        accum.count++;  //c
     }
 }
