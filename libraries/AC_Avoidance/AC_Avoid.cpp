@@ -104,6 +104,11 @@ const AP_Param::GroupInfo AC_Avoid::var_info[] = {
     // @User: Standard
     AP_GROUPINFO("BACKUP_DZ", 9, AC_Avoid, _backup_deadzone, 0.10f),
 
+    AP_GROUPINFO("UP_ENABLE", 10,  AC_Avoid, _up_enabled, 0),
+
+    AP_GROUPINFO("UP_DIST_CM", 11,  AC_Avoid, _up_dist_cm, 150),
+
+
     AP_GROUPEND
 };
 

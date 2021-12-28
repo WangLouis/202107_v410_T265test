@@ -8,6 +8,8 @@
 /*
   constructor for Mode object
  */
+int tone_count = 0;
+
 Mode::Mode(void) :
     g(copter.g),
     g2(copter.g2),
@@ -567,6 +569,13 @@ void Mode::land_run_vertical_control(bool pause_descent)
         if (doing_precision_landing) {
             // prec landing is active
             Vector2f target_pos;
+            tone_count++;
+	        if (tone_count > 12){
+	        // play a tone
+	        //AP_Notify::events.waypoint_complete = 1;
+            AP_Notify::events.user_mode_change = 1;
+	        tone_count = 0;
+	        }
             float target_error_cm = 0.0f;
             if (copter.precland.get_target_position_cm(target_pos)) {
                 const Vector2f current_pos = inertial_nav.get_position().xy();
@@ -589,6 +598,11 @@ void Mode::land_run_vertical_control(bool pause_descent)
                 cmb_rate = MIN(-precland_min_descent_speed_cms, -max_descent_speed_cms+land_slowdown);
             }
         }
+        
+        if(doing_precision_landing == 0 && copter.rangefinder_alt_ok() && copter.rangefinder_state.alt_cm < 250.0f && !copter.any_failsafe_triggered()){
+            set_mode(Mode::Number::BRAKE, ModeReason::UNKNOWN);
+        }
+        
 #endif
     }
 

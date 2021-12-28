@@ -107,6 +107,11 @@ public:
     // return minimum alt (in meters) above which avoidance will be active
     float get_min_alt() const { return _alt_min; }
 
+    int get_up_enabled() const { return _up_enabled; }
+
+    int get_up_dist_cm() const { return _up_dist_cm; }
+
+
     // return true if limiting is active
     bool limits_active() const {return (AP_HAL::millis() - _last_limit_time) < AC_AVOID_ACTIVE_LIMIT_TIMEOUT_MS;};
 
@@ -216,6 +221,9 @@ private:
     AP_Float _alt_min;          // alt below which Proximity based avoidance is turned off
     AP_Float _accel_max;        // maximum accelration while simple avoidance is active
     AP_Float _backup_deadzone;  // distance beyond AVOID_MARGIN parameter, after which vehicle will backaway from obstacles
+    AP_Int8 _up_enabled;        // avoid up enable
+    AP_Int16 _up_dist_cm;       // avoid up range by cm
+
 
     bool _proximity_enabled = true; // true if proximity sensor based avoidance is enabled (used to allow pilot to enable/disable)
     bool _proximity_alt_enabled = true; // true if proximity sensor based avoidance is enabled based on altitude

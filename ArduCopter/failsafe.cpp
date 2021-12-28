@@ -43,6 +43,7 @@ void Copter::failsafe_check()
         failsafe_last_timestamp = tnow;
         if (in_failsafe) {
             in_failsafe = false;
+            //failsafe_flag = 0;
             AP::logger().Write_Error(LogErrorSubsystem::CPU, LogErrorCode::FAILSAFE_RESOLVED);
         }
         return;
@@ -53,6 +54,7 @@ void Copter::failsafe_check()
         // main loop ran. That means we're in trouble and should
         // disarm the motors->
         in_failsafe = true;
+        //failsafe_flag = 1;
         // reduce motors to minimum (we do not immediately disarm because we want to log the failure)
         if (motors->armed()) {
             motors->output_min();

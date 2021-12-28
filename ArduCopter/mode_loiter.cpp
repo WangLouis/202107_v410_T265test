@@ -165,6 +165,12 @@ void ModeLoiter::run()
         }
 #endif
 
+        if (copter.rangefinder_up_state.alt_cm < copter.avoid.get_up_dist_cm() && copter.rangefinder_up_state.alt_cm > 15 && copter.avoid.get_up_enabled() )
+	    {
+		    set_mode(Mode::Number::BRAKE, ModeReason::FENCE_BREACHED);
+		    AP_Notify::events.waypoint_complete = 1;
+	    } 
+
         // run loiter controller
         loiter_nav->update();
 
