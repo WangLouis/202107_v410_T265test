@@ -38,6 +38,7 @@
 #define HAL_MSP_RANGEFINDER_ENABLED HAL_MSP_ENABLED && !HAL_MINIMIZE_FEATURES
 #endif
 
+
 class AP_RangeFinder_Backend;
 
 class RangeFinder
@@ -113,6 +114,7 @@ public:
         enum RangeFinder::Status status; // sensor status
         uint8_t  range_valid_count;     // number of consecutive valid readings (maxes out at 10)
         uint32_t last_reading_ms;       // system time of last successful update from sensor
+        float auto_adjust_alt_m = 0;
 
         const struct AP_Param::GroupInfo *var_info;
     };

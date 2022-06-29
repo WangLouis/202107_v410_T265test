@@ -27,4 +27,7 @@ public:
     AP_Int8  ground_clearance_cm;
     AP_Int8  address;
     AP_Int8  orientation;
+
+    AP_Float adjust_height_flag;
+    AP_Float adjust_height_m;
 };

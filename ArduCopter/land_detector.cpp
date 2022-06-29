@@ -102,6 +102,7 @@ void Copter::update_land_detector()
                 land_detector_count++;
             } else {
                 set_land_complete(true);
+                gcs().send_text(MAV_SEVERITY_NOTICE,"Land complete");
             }
         } else {
             // we've sensed movement up or down so reset land_detector

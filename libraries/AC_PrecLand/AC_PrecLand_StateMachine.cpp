@@ -2,6 +2,8 @@
 #include <AC_PrecLand/AC_PrecLand.h>
 #include <AP_AHRS/AP_AHRS.h>
 
+extern uint8_t GCS_PLND_MSG;
+
 static const float MAX_POS_ERROR_M = 0.75f;  // Maximum possition error for retry locations
 static const uint32_t FAILSAFE_INIT_TIMEOUT_MS = 7000;   // Timeout in ms before failsafe measures are started. During this period vehicle is completely stopped to give user the time to take over
 static const float RETRY_OFFSET_ALT_M = 1.5f;  // This gets added to the altitude of the retry location
@@ -244,7 +246,9 @@ AC_PrecLand_StateMachine::FailSafeAction AC_PrecLand_StateMachine::get_failsafe_
         // start the timer
         failsafe_start_ms = AP_HAL::millis();
         failsafe_initialized = true;
-        gcs().send_text(MAV_SEVERITY_INFO, "PrecLand: Failsafe Measures");
+        if (GCS_PLND_MSG == 0) { 
+            gcs().send_text(MAV_SEVERITY_INFO, "PrecLand: Failsafe Measures");
+        }
     }
 
     // Depending on the strictness we will either land vertically, wait for some time and then land vertically, not land at all

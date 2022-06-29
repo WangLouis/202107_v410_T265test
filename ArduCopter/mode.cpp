@@ -182,7 +182,7 @@ Mode *Copter::mode_from_mode_num(const Mode::Number mode)
     return ret;
 }
 
-
+extern uint8_t GCS_PLND_MSG;
 // called when an attempt to change into a mode is unsuccessful:
 void Copter::mode_change_failed(const Mode *mode, const char *reason)
 {
@@ -535,6 +535,8 @@ int32_t Mode::get_alt_above_ground_cm(void)
     return copter.current_loc.alt;
 }
 
+uint16_t plnd_counter = 400;
+
 void Mode::land_run_vertical_control(bool pause_descent)
 {
     float cmb_rate = 0;
@@ -564,8 +566,26 @@ void Mode::land_run_vertical_control(bool pause_descent)
         const bool navigating = pos_control->is_active_xy();
         bool doing_precision_landing = !copter.ap.land_repo_active && copter.precland.target_acquired() && navigating;
 
+        if (doing_precision_landing == 0 && copter.rangefinder_alt_ok() && copter.rangefinder_state.alt_cm > 150.0f && copter.rangefinder_state.alt_cm < 400.0f){
+	             set_mode(Mode::Number::BRAKE, ModeReason::UNKNOWN);
+	             AP_Notify::events.user_mode_change = 1;
+                 GCS_PLND_MSG = 1;
+                 gcs().send_text(MAV_SEVERITY_NOTICE,"NO Detect Beacon STOP landing");
+                 gcs().send_text(MAV_SEVERITY_NOTICE,"NO Detect Beacon STOP landing");
+            } 
+
         if (doing_precision_landing) {
             // prec landing is active
+            GCS_PLND_MSG = 0;
+
+            //play a tone
+            plnd_counter++;
+            if (plnd_counter > 400)
+            {
+                AP_Notify::events.user_mode_change = 1;
+                plnd_counter = 0;
+            }
+
             Vector2f target_pos;
             float target_error_cm = 0.0f;
             if (copter.precland.get_target_position_cm(target_pos)) {
@@ -573,6 +593,8 @@ void Mode::land_run_vertical_control(bool pause_descent)
                 // target is this many cm away from the vehicle
                 target_error_cm = (target_pos - current_pos).length();
             }
+
+
             // check if we should descend or not
             const float max_horiz_pos_error_cm = copter.precland.get_max_xy_error_before_descending_cm();
             if (target_error_cm > max_horiz_pos_error_cm && !is_zero(max_horiz_pos_error_cm)) {
@@ -585,7 +607,7 @@ void Mode::land_run_vertical_control(bool pause_descent)
                 const float precland_acceptable_error_cm = 15.0f;
                 const float precland_min_descent_speed_cms = 10.0f;
                 const float max_descent_speed_cms = abs(g.land_speed)*0.5f;
-                const float land_slowdown = MAX(0.0f, target_error_cm*(max_descent_speed_cms/precland_acceptable_error_cm));
+                const float land_slowdown = MAX(0.2f, target_error_cm*(max_descent_speed_cms/precland_acceptable_error_cm));
                 cmb_rate = MIN(-precland_min_descent_speed_cms, -max_descent_speed_cms+land_slowdown);
             }
         }

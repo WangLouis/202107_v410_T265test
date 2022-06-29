@@ -165,11 +165,26 @@ bool AP_RangeFinder_USD1_Serial::get_reading(float &reading_m)
         return false;
     }
 
+    //state.auto_adjust_alt_m = 2;
+    
     reading_m = (sum * 0.01) / count;
 
     if (_version == 0 && _header != USD1_HDR) {
         reading_m *= 2.5;
     }
 
+    //hal.console->printf("reading_m 1 %f\n", reading_m);
+
+    /*
+    if(params.adjust_height_m  > 0 && params.adjust_height_m > reading_m &&  reading_m > 1){
+        reading_m = params.adjust_height_m - reading_m;
+    //hal.console->printf("reading_m adj %f\n", reading_m);
+    }
+
+    if(reading_m >= params.adjust_height_m ){
+        reading_m = 0.1;
+    }
+    */
+    
     return true;
 }

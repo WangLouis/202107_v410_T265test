@@ -13,6 +13,12 @@ class AC_PrecLand_Companion;
 class AC_PrecLand_IRLock;
 class AC_PrecLand_SITL_Gazebo;
 class AC_PrecLand_SITL;
+/*
+#ifndef GCS_PLND_MSG
+#define GCS_PLND_MSG 0
+#endif
+*/
+//uint8_t GCS_PLND_MSG = 0;
 
 class AC_PrecLand
 {

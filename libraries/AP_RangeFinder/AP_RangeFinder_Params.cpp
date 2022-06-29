@@ -128,7 +128,11 @@ const AP_Param::GroupInfo AP_RangeFinder_Params::var_info[] = {
     // @Values: 0:Forward, 1:Forward-Right, 2:Right, 3:Back-Right, 4:Back, 5:Back-Left, 6:Left, 7:Forward-Left, 24:Up, 25:Down
     // @User: Advanced
     AP_GROUPINFO("ORIENT", 53, AP_RangeFinder_Params, orientation, ROTATION_PITCH_270),
+    
+    AP_GROUPINFO("ADJ_H_M", 56, AP_RangeFinder_Params, adjust_height_m, 2.4f),
 
+    //AP_GROUPINFO("ADJ_H_FL", 57, AP_RangeFinder_Params, adjust_height_flag, 1.0f),
+    
     AP_GROUPEND
 };
 
