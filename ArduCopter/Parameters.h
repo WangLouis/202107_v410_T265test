@@ -649,6 +649,7 @@ public:
 
 #if RANGEFINDER_ENABLED == ENABLED
     AP_Float rangefinder_filt;
+    //AP_Int8  ekf_switch_flag;
 #endif
 
 #if MODE_GUIDED_ENABLED == ENABLED
@@ -668,5 +669,7 @@ public:
     AP_Float                pilot_y_expo;
     AP_Int8                 surftrak_mode;
 };
+    
+    
 
 extern const AP_Param::Info        var_info[];

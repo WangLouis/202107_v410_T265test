@@ -878,6 +878,13 @@ void ModeAuto::wp_run()
     // run waypoint controller
     copter.failsafe_terrain_set_status(wp_nav->update_wpnav());
 
+    // avoid under the bridge
+    if (copter.rangefinder_up_state.alt_cm < copter.avoid.get_up_dist_cm() && copter.rangefinder_up_state.alt_cm > 15 && copter.avoid.get_up_enabled() )
+    {
+        set_mode(Mode::Number::BRAKE, ModeReason::FENCE_BREACHED);
+        AP_Notify::events.waypoint_complete = 1;
+    }
+
     // WP_Nav has set the vertical position control targets
     // run the vertical position controller and set output throttle
     pos_control->update_z_controller();

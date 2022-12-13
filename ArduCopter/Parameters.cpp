@@ -1111,6 +1111,8 @@ const AP_Param::GroupInfo ParametersG2::var_info[] = {
     // @User: Advanced
     AP_GROUPINFO("SURFTRAK_MODE", 51, ParametersG2, surftrak_mode, (uint8_t)Copter::SurfaceTracking::Surface::GROUND),
 
+    //AP_GROUPINFO("EKF_SW_FLAG", 52, ParametersG2, ekf_switch_flag, 0),
+
     AP_GROUPEND
 };
 

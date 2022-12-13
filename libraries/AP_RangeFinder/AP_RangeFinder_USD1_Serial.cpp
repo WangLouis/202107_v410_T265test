@@ -22,6 +22,11 @@
 
 extern const AP_HAL::HAL& hal;
 
+uint16_t ekf_source_counter = 0;
+uint8_t ekf_source_flag = 0;
+float last_reading_m = 0;
+#include <AP_AHRS/AP_AHRS.h>
+
 /*
    detect USD1_Serial Firmware Version
 */
@@ -172,8 +177,34 @@ bool AP_RangeFinder_USD1_Serial::get_reading(float &reading_m)
     if (_version == 0 && _header != USD1_HDR) {
         reading_m *= 2.5;
     }
-
+    
+    /*
+    float diffA = 0;
+    float diffB = 0;
+    diffA = reading_m - last_reading_m;
+    diffA = last_reading_m - reading_m ;
     //hal.console->printf("reading_m 1 %f\n", reading_m);
+    //if (params.auto_switch_flag == 1 ) {
+        if ( (diffA > 0.3 || diffB > 0.3) && ekf_source_flag == 0 ) {
+            // low switches to primary source
+             AP::ahrs().set_posvelyaw_source_set(1);
+             gcs().send_text(MAV_SEVERITY_NOTICE,"EKF Z is Bad SRC Switch to MIDDLE 1");
+             ekf_source_flag = 1;
+        }
+
+        if (ekf_source_flag == 1){
+            if (ekf_source_counter > 100){     // 1000 = 50s
+                // middle switches to secondary source
+                AP::ahrs().set_posvelyaw_source_set(0);
+                gcs().send_text(MAV_SEVERITY_NOTICE,"EKF SRC Switch to LOW 0");
+                ekf_source_flag = 0;
+                ekf_source_counter = 0;
+            }
+            ekf_source_counter = ekf_source_counter + 1;
+         }
+         last_reading_m = reading_m;
+    //}
+    */
 
     /*
     if(params.adjust_height_m  > 0 && params.adjust_height_m > reading_m &&  reading_m > 1){

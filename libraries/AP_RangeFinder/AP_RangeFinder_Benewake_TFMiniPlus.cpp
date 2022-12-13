@@ -142,20 +142,25 @@ void AP_RangeFinder_Benewake_TFMiniPlus::update()
 
     if (accum.count > 0) {
         state.distance_m = (accum.sum * 0.01f) / accum.count;
-        
+    /*    
         if(params.adjust_height_m  > 0 && params.adjust_height_m > state.distance_m &&  state.distance_m > 0.2){
         state.distance_m = params.adjust_height_m - state.distance_m;
     //hal.console->printf("reading_m adj %f\n", reading_m);
     }
         
         state.auto_adjust_alt_m = state.distance_m;
-
+    */
         state.last_reading_ms = AP_HAL::millis();
         accum.sum = 0;
         accum.count = 0;
         update_status();
     } else if (AP_HAL::millis() - state.last_reading_ms > 200) {
-        set_status(RangeFinder::Status::NoData);
+         //set_status(RangeFinder::Status::NoData);
+        state.distance_m = 6;
+        state.last_reading_ms = AP_HAL::millis();
+        accum.sum = 0;
+        accum.count = 0;
+        update_status();
     }
 }
 

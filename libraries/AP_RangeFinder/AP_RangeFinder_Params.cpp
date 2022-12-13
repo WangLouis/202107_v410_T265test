@@ -129,9 +129,9 @@ const AP_Param::GroupInfo AP_RangeFinder_Params::var_info[] = {
     // @User: Advanced
     AP_GROUPINFO("ORIENT", 53, AP_RangeFinder_Params, orientation, ROTATION_PITCH_270),
     
-    AP_GROUPINFO("ADJ_H_M", 56, AP_RangeFinder_Params, adjust_height_m, 2.4f),
+    //AP_GROUPINFO("ADJ_H_M", 25, AP_RangeFinder_Params, adjust_height_m, 2.4f), //25 26 56 OK
 
-    //AP_GROUPINFO("ADJ_H_FL", 57, AP_RangeFinder_Params, adjust_height_flag, 1.0f),
+    //AP_GROUPINFO("EKF_SW_FLAG", 56, AP_RangeFinder_Params, auto_switch_flag, 1),
     
     AP_GROUPEND
 };
