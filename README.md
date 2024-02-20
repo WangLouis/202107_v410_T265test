@@ -8,9 +8,13 @@
 
 ![Test Unit Tests](https://github.com/ArduPilot/ardupilot/workflows/test%20unit%20tests/badge.svg?branch=master)
 
+![Test Environment Setup](https://github.com/ArduPilot/ardupilot/actions/workflows/test_environment.yml/badge.svg?branch=master)
+
 [![Build SemaphoreCI](https://semaphoreci.com/api/v1/ardupilot/ardupilot/branches/master/badge.svg)](https://semaphoreci.com/ardupilot/ardupilot) [![Build Status](https://dev.azure.com/ardupilot-org/ardupilot/_apis/build/status/ArduPilot.ardupilot?branchName=master)](https://dev.azure.com/ardupilot-org/ardupilot/_build/latest?definitionId=1&branchName=master)
 
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/5331/badge.svg)](https://scan.coverity.com/projects/ardupilot-ardupilot)
+
+[![Test Coverage](https://github.com/ArduPilot/ardupilot/actions/workflows/test_coverage.yml/badge.svg?branch=master)](https://github.com/ArduPilot/ardupilot/actions/workflows/test_coverage.yml)
 
 [![Autotest Status](https://autotest.ardupilot.org/autotest-badge.svg)](https://autotest.ardupilot.org/)
 
@@ -130,11 +134,26 @@ for reviewing patches on their specific area.
 - [Paul Riseborough](https://github.com/priseborough):
   - ***Subsystem***: AP_NavEKF2
   - ***Subsystem***: AP_NavEKF3
-- [Pierre Kancir](https://github.com/khancyr):
-  - ***Subsystem***: Copter SITL, Rover SITL
 - [Víctor Mayoral Vilches](https://github.com/vmayoral):
   - ***Board***: PXF, Erle-Brain 2, PXFmini
 - [Amilcar Lucas](https://github.com/amilcarlucas):
   - ***Subsystem***: Marvelmind
 - [Samuel Tabor](https://github.com/samuelctabor):
   - ***Subsystem***: Soaring/Gliding
+- [Henry Wurzburg](https://github.com/Hwurzburg):
+  - ***Subsystem***: OSD
+  - ***Site***: Wiki
+- [Peter Hall](https://github.com/IamPete1):
+  - ***Vehicle***: Tailsitters
+  - ***Vehicle***: Sailboat
+  - ***Subsystem***: Scripting
+- [Andy Piper](https://github.com/andyp1per):
+  - ***Subsystem***: Crossfire
+  - ***Subsystem***: ESC
+  - ***Subsystem***: OSD
+  - ***Subsystem***: SmartAudio
+- [Alessandro Apostoli ](https://github.com/yaapu):
+  - ***Subsystem***: Telemetry
+  - ***Subsystem***: OSD
+- [Rishabh Singh ](https://github.com/rishabsingh3003):
+  - ***Subsystem***: Avoidance/Proximity
